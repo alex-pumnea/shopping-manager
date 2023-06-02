@@ -18,21 +18,21 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class ElectronicsDto extends ProductDto {
-    private final String productBrand;
-    private final String productModel;
+    private final String brand;
+    private final String model;
 
-    public ElectronicsDto(String productName, double productPrice, String productBrand, String productModel) {
+    public ElectronicsDto(String productName, double productPrice, String brand, String model) {
         super(productName, productPrice);
-        this.productBrand = productBrand;
-        this.productModel = productModel;
+        this.brand = brand;
+        this.model = model;
     }
 
     @Override
     public String toString() {
         return "Electronics - " +
-                "productName='" + getName() + '\'' +
-                "productPrice=" + getPrice() + '\'' +
-                "productBrand='" + productBrand + '\'' +
-                "productModel='" + productModel + '\'';
+                "name ='" + getName() + '\'' +
+                ", price=" + getPrice() + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'';
     }
 }
