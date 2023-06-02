@@ -6,7 +6,8 @@ import com.amsoft.shopping.core.model.Book;
 import com.amsoft.shopping.core.model.Electronics;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * @author Alex Pumnea
  */
@@ -15,32 +16,28 @@ class ProductMapperTest {
 
     @Test
     void shouldMapBookToBookDto() {
-        // Given
-        Book book = new Book("BookName", 10.0, 50, "Author", "Category");
 
-        // When
+        Book book = new Book("Java in Action", 10.0, 50, "Joshua Block", "IT");
+
         BookDto bookDto = productMapper.getBookDto(book);
 
-        // Then
-        assertThat(bookDto.getName()).isEqualTo("BookName");
+        assertThat(bookDto.getName()).isEqualTo("Java in Action");
         assertThat(bookDto.getPrice()).isEqualTo(10.0);
-        assertThat(bookDto.getAuthor()).isEqualTo("Author");
-        assertThat(bookDto.getCategory()).isEqualTo("Category");
+        assertThat(bookDto.getAuthor()).isEqualTo("Joshua Block");
+        assertThat(bookDto.getCategory()).isEqualTo("IT");
     }
 
     @Test
     void shouldMapElectronicsToElectronicsDto() {
-        // Given
-        Electronics electronics = new Electronics("ElectronicsName", 20.0, 100, "Brand", "Model");
 
-        // When
+        Electronics electronics = new Electronics("Phone", 20.0, 100, "Apple", "XR");
+
         ElectronicsDto electronicsDto = productMapper.getElectronicsDto(electronics);
 
-        // Then
-        assertThat(electronicsDto.getName()).isEqualTo("ElectronicsName");
+        assertThat(electronicsDto.getName()).isEqualTo("Phone");
         assertThat(electronicsDto.getPrice()).isEqualTo(20.0);
-        assertThat(electronicsDto.getBrand()).isEqualTo("Brand");
-        assertThat(electronicsDto.getModel()).isEqualTo("Model");
+        assertThat(electronicsDto.getBrand()).isEqualTo("Apple");
+        assertThat(electronicsDto.getModel()).isEqualTo("XR");
     }
 
 }
