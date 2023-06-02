@@ -14,5 +14,8 @@ public interface ShoppingCartService<T> {
     double totalPrice();
 
     Iterable<T> getCartItems();
+
     void displayCartItems();
+
+    double getTotalAmountOfItems();
 }
