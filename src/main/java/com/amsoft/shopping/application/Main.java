@@ -21,27 +21,45 @@ public class Main {
     public static void main(String[] args) {
         ProductRepository<ProductDto> productRepository = new ProductRepositoryImpl();
         ShoppingCartServiceImpl shoppingCart = new ShoppingCartServiceImpl(productRepository);
-        BookFactory bookFactory = new BookFactory();
-        ElectronicsFactory electronicsFactory = new ElectronicsFactory();
         ProductMapper mapper = new ProductMapper();
 
+        runBookExample(productRepository, shoppingCart, mapper);
+        runElectronicsExample(productRepository, shoppingCart, mapper);
+    }
 
-        Book book = bookFactory.createBook("Name", 2, 20, "John", "Drama");
-        BookDto bookDto = mapper.getBookDto(book);
-        productRepository.save(bookDto, book.getQuantity());
-        shoppingCart.addToCart(bookDto, 1);
-        shoppingCart.displayCartItems();
+    private static void runBookExample(ProductRepository<ProductDto> productRepository, ShoppingCartServiceImpl shoppingCart, ProductMapper mapper) {
+        BookFactory bookFactory = new BookFactory();
 
-        Electronics electronics = electronicsFactory.createElectronics("Phone", 300, 5, "Iphone", "13");
-        ElectronicsDto electronicsDto = mapper.getElectronicsDto(electronics);
-        productRepository.save(electronicsDto, electronics.getQuantity());
-        shoppingCart.addToCart(electronicsDto, 5);
-        log.info(String.valueOf(shoppingCart.totalPrice()));
-        shoppingCart.displayCartItems();
-        shoppingCart.removeFromCart(bookDto, 1);
-        shoppingCart.removeFromCart(electronicsDto, 3);
+        Book javaInAction = bookFactory.createBook("Java in Action", 16.90, 20, "Joshua Block", "IT");
+        Book cruisingAlongWithJava = bookFactory.createBook("Cruising along with Java", 25.90, 203, "Venkat Subramaniam", "IT");
+
+        BookDto javaInActionDto = mapper.getBookDto(javaInAction);
+        BookDto cruisingAlongWithJavaDto = mapper.getBookDto(cruisingAlongWithJava);
+
+        productRepository.save(javaInActionDto, javaInAction.getQuantity());
+        productRepository.save(cruisingAlongWithJavaDto, cruisingAlongWithJava.getQuantity());
+
+        shoppingCart.addToCart(javaInActionDto, 1);
+        shoppingCart.addToCart(cruisingAlongWithJavaDto, 100);
+
         shoppingCart.displayCartItems();
     }
 
+    private static void runElectronicsExample(ProductRepository<ProductDto> productRepository, ShoppingCartServiceImpl shoppingCart, ProductMapper mapper) {
+        ElectronicsFactory electronicsFactory = new ElectronicsFactory();
 
+        Electronics electronics = electronicsFactory.createElectronics("Phone", 300, 5, "Iphone", "13");
+
+        ElectronicsDto electronicsDto = mapper.getElectronicsDto(electronics);
+
+        productRepository.save(electronicsDto, electronics.getQuantity());
+
+        shoppingCart.addToCart(electronicsDto, 5);
+
+        shoppingCart.displayCartItems();
+
+        shoppingCart.removeFromCart(electronicsDto, 3);
+
+        shoppingCart.displayCartItems();
+    }
 }
